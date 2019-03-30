@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 
@@ -31,12 +31,17 @@
 
 """
 
+import os
+import sys
+
+this_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(this_dir, '../..'))
+
 import pygame
 from pygame.locals import *
 from mingus.containers import *
 from mingus.midi import fluidsynth
-from os import sys
-SF2 = 'soundfont.sf2'
+SF2 = '/usr/share/sounds/sf2/FluidR3_GM.sf2'
 
 PAD_PLACEMENT = [  # high, mid, low, snare bass, crash, ride, open, close
     (190, 20),
@@ -62,19 +67,19 @@ def load_img(name):
             image = image.convert()
         else:
             image = image.convert_alpha()
-    except pygame.error, message:
-        print "Error: couldn't load image: ", fullname
-        raise SystemExit, message
+    except pygame.error as message:
+        print("Error: couldn't load image: ", fullname)
+        raise SystemExit(message)
     return (image, image.get_rect())
 
 
-if not fluidsynth.init(SF2):
-    print "Couldn't load soundfont", SF2
+if not fluidsynth.init(SF2, driver="alsa"):
+    print("Couldn't load soundfont", SF2)
     sys.exit(1)
 
 pygame.init()
 screen = pygame.display.set_mode((610, 500))
-(pad, pad_rect) = load_img('pad.png')
+(pad, pad_rect) = load_img(os.path.join(this_dir, 'pad.png'))
 hit = pygame.Surface(pad_rect.size)  # Used to display which pad was hit
 
 track = pygame.Surface((610, 45))

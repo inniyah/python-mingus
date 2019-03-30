@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 #    mingus - Music theory Python package, run_fluidsynth_tests module.
@@ -22,6 +22,12 @@
 Remember: you need a running fluidsynth server process listening at port
 9800 to pass this test.
 """
+
+import os
+import sys
+
+this_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(this_dir, '..'))
 
 import unittest
 import test_fluidsynth

@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 
@@ -12,14 +12,19 @@
     Based on play_progression.py
 """
 
+import os
+import sys
+import time
+
+this_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(this_dir, '../..'))
+
 from mingus.core import progressions, intervals
 from mingus.core import chords as ch
 from mingus.containers import NoteContainer, Note
 from mingus.midi import fluidsynth
-import time
-import sys
 from random import random, choice, randrange
-SF2 = 'soundfont.sf2'
+SF2 = '/usr/share/sounds/sf2/FluidR3_GM.sf2'
 progression = ['I', 'bVdim7']
 
 # progression = ["I", "vi", "ii", "iii7",               "I7", "viidom7", "iii7",
@@ -56,8 +61,8 @@ chord_channel3 = 3
 bass_channel = 4
 solo_channel = 13
 random_solo_channel = False
-if not fluidsynth.init(SF2):
-    print "Couldn't load soundfont", SF2
+if not fluidsynth.init(SF2, driver="alsa"):
+    print("Couldn't load soundfont", SF2)
     sys.exit(1)
 chords = progressions.to_chords(progression, key)
 loop = 1
@@ -71,7 +76,7 @@ while loop < song_end:
         n = Note('C')
         l.octave_down()
         l.octave_down()
-        print ch.determine(chords[i])[0]
+        print(ch.determine(chords[i])[0])
 
         if not swing and play_chords and loop > chord_start and loop\
              < chord_end:
@@ -109,7 +114,7 @@ while loop < song_end:
                         if beats[t - 1] and not beats[t + 1]:
                             n = Note(choice(c).name)
                 fluidsynth.play_Note(n, solo_channel, randrange(80, 110))
-                print n
+                print(n)
 
             # Repeat chord on half of the bar
 
@@ -171,5 +176,5 @@ while loop < song_end:
         fluidsynth.stop_Note(l, bass_channel)
         fluidsynth.stop_Note(n, solo_channel)
         i += 1
-    print '-' * 20
+    print('-' * 20)
     loop += 1

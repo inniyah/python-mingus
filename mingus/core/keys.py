@@ -22,8 +22,8 @@
 This module provides a simple interface for dealing with keys.
 """
 
-from mt_exceptions import FormatError, NoteFormatError, RangeError
-import notes
+from .mt_exceptions import FormatError, NoteFormatError, RangeError
+from . import notes
 import operator
 from itertools import cycle, islice
 
@@ -106,7 +106,7 @@ def get_notes(key='C'):
     >>> get_notes('c')
     ['C', 'D', 'Eb', 'F', 'G', 'Ab', 'Bb']
     """
-    if _key_cache.has_key(key):
+    if key in _key_cache:
         return _key_cache[key]
     if not is_valid_key(key):
         raise NoteFormatError("unrecognized format for key '%s'" % key)

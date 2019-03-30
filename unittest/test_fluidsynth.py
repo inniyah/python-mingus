@@ -1,6 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import os
 import sys
+
+this_dir = os.path.dirname(os.path.realpath(__file__))
+
 sys.path += ['../']
 from mingus.midi import fluidsynth
 from mingus.containers import *
@@ -11,8 +15,7 @@ from mingus.midi.sequencer_observer import SequencerObserver
 class test_fluidsynth(unittest.TestCase):
 
     def setUp(self):
-        fluidsynth.init('/home/bspaans/workspace/fluidsynth/ChoriumRevA.SF2',
-                        file='test.wav')
+        fluidsynth.init('/usr/share/sounds/sf2/FluidR3_GM.sf2', file='test.wav')
         fluidsynth.set_instrument(0, 0)
         s = SequencerObserver()
         fluidsynth.midi.attach(s)

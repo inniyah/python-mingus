@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 
@@ -9,14 +9,19 @@
     You should specify the SF2 soundfont file.
 """
 
+import os
+import sys
+import time
+
+this_dir = os.path.dirname(os.path.realpath(__file__))
+sys.path.append(os.path.join(this_dir, '../..'))
+
 from mingus.core import progressions, intervals
 from mingus.core import chords as ch
 from mingus.containers import NoteContainer, Note
 from mingus.midi import fluidsynth
-import time
-import sys
 from random import random
-SF2 = 'soundfont_example.sf2'
+SF2 = '/usr/share/sounds/sf2/FluidR3_GM.sf2'
 progression = [
     'I',
     'vi',
@@ -29,8 +34,8 @@ progression = [
     ]
 key = 'C'
 chords = progressions.to_chords(progression, key)
-if not fluidsynth.init(SF2):
-    print "Couldn't load soundfont", SF2
+if not fluidsynth.init(SF2, driver="alsa"):
+    print("Couldn't load soundfont", SF2)
     sys.exit(1)
 while 1:
     i = 0
@@ -39,7 +44,7 @@ while 1:
         l = Note(c[0].name)
         p = c[1]
         l.octave_down()
-        print ch.determine(chords[i])[0]
+        print(ch.determine(chords[i])[0])
 
         # Play chord and lowered first note
 
@@ -76,4 +81,4 @@ while 1:
         fluidsynth.stop_Note(l)
         fluidsynth.stop_Note(p)
         i += 1
-    print '-' * 20
+    print('-' * 20)

@@ -33,7 +33,7 @@ Now you are ready to play Notes, NoteContainers, etc.
 
 from mingus.midi.sequencer import Sequencer
 from mingus.containers.instrument import MidiInstrument
-import pyfluidsynth as fs
+from . import pyfluidsynth as fs
 import time
 import wave
 
@@ -94,7 +94,7 @@ class FluidSynthSequencer(Sequencer):
         if hasattr(self, 'wav'):
             samples = fs.raw_audio_string(self.fs.get_samples(
                 int(seconds * 44100)))
-            self.wav.writeframes(''.join(samples))
+            self.wav.writeframes(samples)
         else:
             time.sleep(seconds)
 
