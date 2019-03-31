@@ -4,15 +4,13 @@
 import os
 import sys
 import time
+import math
+import rtmidi
 
 this_dir = os.path.dirname(os.path.realpath(__file__))
 sys.path.append(os.path.join(this_dir, '../..'))
 
 from pyglet.gl import *
-import math
-import time
-import rtmidi
-import sys
 
 #from mingus.core import progressions, intervals
 #from mingus.core import chords as ch
@@ -20,6 +18,8 @@ import sys
 #from mingus.midi import fluidsynth
 
 from mingus.core.notes import int_to_note
+
+import freetype2
 
 SF2 = '/usr/share/sounds/sf2/FluidR3_GM.sf2'
 
