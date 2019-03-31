@@ -24,11 +24,11 @@ from mingus.core import chords as ch
 from mingus.containers import NoteContainer, Note
 from mingus.midi import fluidsynth
 from random import random, choice, randrange
-SF2 = '/usr/share/sounds/sf2/FluidR3_GM.sf2'
-progression = ['I', 'bVdim7']
 
-# progression = ["I", "vi", "ii", "iii7",               "I7", "viidom7", "iii7",
-# "V7"]
+SF2 = '/usr/share/sounds/sf2/FluidR3_GM.sf2'
+
+progression = ['I', 'bVdim7']
+# progression = ["I", "vi", "ii", "iii7", "I7", "viidom7", "iii7", "V7"]
 
 key = 'C'
 
