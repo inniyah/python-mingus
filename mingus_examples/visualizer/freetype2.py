@@ -35,12 +35,12 @@ interface to Pycairo, if installed:
 #-
 
 import math
-from numbers import \
-    Real
+from numbers import Real
 import array
 import ctypes as ct
 import struct
 import weakref
+
 try :
     import cairo
 except ImportError :
